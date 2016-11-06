@@ -19,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -167,13 +168,13 @@ public class ArticleListActivity extends ActionBarActivity implements
                 holder.thumbnailView.setTransitionName(Utils.getArticleTransitionName(position));
             }
 
+            ImageLoader imageLoader = ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader();
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
-                    ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
+                    imageLoader);
 
             // Experiment: Using the image pallete to color the list item header as well
-            ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader()
-                    .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
+            imageLoader.get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
                         @Override
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
                             Bitmap bitmap = imageContainer.getBitmap();
@@ -190,10 +191,9 @@ public class ArticleListActivity extends ActionBarActivity implements
 
                             }
                         }
-
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
-                            volleyError.printStackTrace();
+                            Log.e("XYZReader", volleyError.getMessage());
                         }
                     });
             holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
