@@ -25,5 +25,8 @@
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:textColorLink">@color/theme_color_accent</item>
     </style>
+    <style name="Theme.Bacon.Detail" parent="@style/Theme.Bacon">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 
 </resources>
