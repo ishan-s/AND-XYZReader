@@ -1,0 +1,4 @@
+<resources>
+    <!-- detail -->
+    <dimen name="fab_margin_right">96dp</dimen> <!-- 800 - 704(max width of details card-->
+</resources>
